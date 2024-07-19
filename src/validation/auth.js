@@ -5,7 +5,7 @@ export const registerUserSchema = Joi.object({
   password: Joi.string().required(),
   gender: Joi.string().valid('Woman', 'Men'),
   name: Joi.string().min(3).max(30),
-  weight: Joi.Number().min(1).max(3),
-  activeTime: Joi.Number().min(1).max(3),
-  amountOfWater: Joi.Number().min(1).max(15),
+  weight: Joi.number().min(1).max(3),
+  activeTime: Joi.number().min(1).max(3),
+  amountOfWater: Joi.number().min(1).max(15),
 });
