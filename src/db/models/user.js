@@ -5,14 +5,13 @@ const usersSchema = new Schema(
     gender: {
       type: String,
       enum: ['Woman', 'Men'],
-      required: false,
     },
-    name: { type: String, required: false },
+    name: { type: String },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    weight: { type: Number, required: false },
-    activeTime: { type: Number, required: false },
-    amountOfWater: { type: Number, required: false },
+    weight: { type: Number },
+    activeTime: { type: Number },
+    amountOfWater: { type: Number },
   },
   { timestamps: true, versionKey: false }
 );
