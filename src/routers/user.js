@@ -6,13 +6,13 @@ import {
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { updateUserSchema } from '../validation/users.js';
-import { authenticate } from '../middlewares/authenticate.js';
+import { auth } from '../middlewares/authenticate.js';
 
 const userRouter = Router();
 
-contactRouter.use(authenticate);
-contactRouter.get('/:userId', ctrlWrapper(getUserByIdController));
-contactRouter.patch(
+userRouter.use(auth);
+userRouter.get('/:userId', ctrlWrapper(getUserByIdController));
+userRouter.patch(
   '/:userId',
   validateBody(updateUserSchema),
   ctrlWrapper(patchUserController)

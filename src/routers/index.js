@@ -2,7 +2,7 @@ import { Router } from 'express';
 import authRouter from './auth.js';
 import userRouter from './user.js';
 import waterRouter from './water.js';
-import { auth } from '../middlewares/auth.js';
+import { auth } from '../middlewares/authenticate.js';
 
 const router = Router();
 
