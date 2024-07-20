@@ -13,13 +13,13 @@ import { logoutUserController } from '../controllers/auth.js';
 const router = Router();
 
 router.post(
-  '/register',
+  '/signup',
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController)
 );
 
 router.post(
-  '/login',
+  '/signin',
   validateBody(loginUserSchema),
   ctrlWrapper(loginUserController)
 );
