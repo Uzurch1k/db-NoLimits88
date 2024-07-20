@@ -1,28 +1,45 @@
-import jwt from 'jsonwebtoken';
-import { UsersCollection } from '../db/models/user.js';
 import createHttpError from 'http-errors';
-import { env } from '../utils/env.js';
+import { SessionsCollection } from '../db/models/session.js';
+import { UsersCollection } from '../db/models/user.js';
 
 export const auth = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
+    const authHeader = req.get('Authorization');
 
-  if (!authHeader) {
-    return next(createHttpError(401, 'Unauthorized'));
-  }
+    if (!authHeader) {
+        next(createHttpError(401, 'Please provide Authorization header'));
+        return;
+    }
 
-  const token = authHeader.split(' ')[1];
+    const bearer = authHeader.split(' ')[0];
+    const token = authHeader.split(' ')[1];
 
-  try {
-    const decoded = jwt.verify(token, env('JWT_SECRET'));
-    const user = await UsersCollection.findById(decoded.id);
+    if (bearer !== 'Bearer' || !token) {
+        next(createHttpError(401, 'Auth header should be of type Bearer'));
+        return;
+    }
+
+    const session = await SessionsCollection.findOne({ accessToken: token });
+
+    if (!session) {
+        next(createHttpError(401, 'Session not found'));
+        return;
+    }
+
+    const isAccessTokenExpired =
+        new Date() > new Date(session.accessTokenValidUntil);
+
+    if (isAccessTokenExpired) {
+        next(createHttpError(401, 'Access token expired'));
+    }
+
+    const user = await UsersCollection.findById(session.userId);
 
     if (!user) {
-      return next(createHttpError(401, 'Unauthorized'));
+        next(createHttpError(401));
+        return;
     }
 
     req.user = user;
+
     next();
-  } catch (err) {
-    return next(createHttpError(401, 'Unauthorized'));
-  }
 };
