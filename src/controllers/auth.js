@@ -45,6 +45,8 @@ export const logoutUserController = async (req, res) => {
 
   res.status(204).send();
 
+};
+
 export const refreshUserSessionController = async (req, res) => {
   const session = await refreshUsersSession({
     sessionId: req.cookies.sessionId,
