@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import { getUserById, updateUser } from '../services/users.js';
 import createHttpError from 'http-errors';
 import { registerUser } from '../services/users.js';
@@ -37,7 +36,6 @@ export const loginUserController = async (req, res) => {
   });
 };
 
-
 export const logoutUserController = async (req, res) => {
   if (req.cookies.sessionId) {
     await logoutUser(req.cookies.sessionId);
@@ -47,7 +45,6 @@ export const logoutUserController = async (req, res) => {
   res.clearCookie('refreshToken');
 
   res.status(204).send();
-
 };
 
 export const refreshUserSessionController = async (req, res) => {
@@ -74,28 +71,23 @@ export const refreshUserSessionController = async (req, res) => {
   });
 };
 
-export const getUserByIdController = async (req, res, next) => {
-  const { userId } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    return res.status(400).json({
-      data: 'Id is not valid',
-    });
-  }
+export const getCurrentUserController = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const User = await getUserById(userId);
 
-  const User = await getUserById(userId);
-  if (!User) {
-    next(createHttpError(404, 'User not found'));
-    return;
+    res.status(200).json({
+      status: 200,
+      message: `Current user information!`,
+      data: User,
+    });
+  } catch (error) {
+    next(error);
   }
-  res.status(200).json({
-    status: 200,
-    message: `Successfully found user with id ${userId}!`,
-    data: User,
-  });
 };
 
-export const patchUserController = async (req, res, next) => {
-  const { userId } = req.params;
+export const updateUserController = async (req, res, next) => {
+  const userId = req.user._id;
 
   const patch = await updateUser(userId, req.body);
   if (!patch) {

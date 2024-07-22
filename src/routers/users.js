@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
-  getUserByIdController,
-  patchUserController,
+  getCurrentUserController,
+  updateUserController,
 } from '../controllers/users.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
@@ -36,12 +36,13 @@ router.post('/logout', ctrlWrapper(logoutUserController));
 
 router.post('/refresh', ctrlWrapper(refreshUserSessionController));
 
-router.get('/:userId', ctrlWrapper(getUserByIdController));
+router.get('/current', auth, ctrlWrapper(getCurrentUserController));
 
 router.patch(
-  '/:userId',
+  '/update',
+  auth,
   validateBody(updateUserSchema),
-  ctrlWrapper(patchUserController)
+  ctrlWrapper(updateUserController)
 );
 
 export default router;
