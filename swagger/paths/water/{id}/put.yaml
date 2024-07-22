@@ -1,0 +1,67 @@
+tags:
+  - Contacts
+summary: Update contact
+operationId: updateContacts
+description: 'Update a contact with payload'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            description: "Contact's name"
+            type: string
+            example: 'John Doe'
+          phoneNumber:
+            description: "Contact's phone number"
+            type: string
+            example: '1234567890'
+          email:
+            description: "Contact's email"
+            type: string
+            example: 'example@gmail.com'
+          isFavourite:
+            description: 'Whether is favourite or not'
+            type: boolean
+            example: false
+          contactType:
+            description: "Type of contact"
+            type: string
+            enum: ['work', 'home', 'personal']
+          photo:
+            description: "Student''s photo"
+            type: string
+            format: binary
+responses:
+  '200':
+    description: Updates a water consumption
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Water consumption record updated successfully!
+            data:
+              type: object
+              $ref: '../../../components/schemas/water.yaml'
+  '401':
+    $ref: '../../../components/responses/401.yaml'

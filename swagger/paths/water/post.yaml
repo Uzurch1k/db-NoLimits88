@@ -1,0 +1,54 @@
+tags:
+  - Water consumption
+summary: Create info about water consumption
+operationId: createWaterConsumption
+description: 'Create a water with payload'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - userId
+          - date
+          - amount
+        properties:
+          userId:
+            description: "User's id"
+            type: string
+            example: 65e4decdd286b30065d54af8
+          date:
+            description: "Date of water consumption"
+            type: string
+            example: "2023-07-20T20:30"
+          amount:
+            description: "Amount of water consumed"
+            type: number
+            example: 1.5
+responses:
+  '201':
+    description: Creates a water consumption
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Water consumption record added successfully!
+            data:
+              type: object
+              $ref: '../../components/schemas/water.yaml'
+  '400':
+    $ref: ../../../components/responses/400.yaml
+  '401':
+    $ref: ../../../components/responses/401.yaml

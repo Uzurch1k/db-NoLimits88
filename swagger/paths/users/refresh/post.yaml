@@ -1,0 +1,26 @@
+tags:
+  - Users
+summary: Refresh token
+operationId: refreshToken
+description: 'Refresh token'
+security:
+  - bearerAuth: []
+responses:
+  '204':
+    description: Refresh token
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 204
+            message:
+              type: string
+              example: Successfully refreshed a session!
+  '401':
+    $ref: ../../../components/responses/401.yaml

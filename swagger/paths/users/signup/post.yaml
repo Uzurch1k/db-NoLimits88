@@ -1,0 +1,46 @@
+tags:
+  - Users
+summary: Sign up a user
+operationId: SignupUser
+description: Sign up a user
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            example: example@email.com
+          password:
+            type: string
+            example: 1234567890
+responses:
+  '201':
+    description: Sign up a user
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully registered a user!
+            data:
+              type: object
+              $ref: '../../components/schemas/user.yaml'
+  '401':
+    $ref: ../../../components/responses/auth/401.yaml
