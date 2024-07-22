@@ -12,6 +12,7 @@ const usersSchema = new Schema(
     weight: { type: Number },
     activeTime: { type: Number },
     amountOfWater: { type: Number },
+    photo: { type: String },
   },
   { timestamps: true, versionKey: false }
 );

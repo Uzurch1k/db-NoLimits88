@@ -1,13 +1,10 @@
 import { Router } from 'express';
-import authRouter from './auth.js';
-import userRouter from './user.js';
+import userRouter from './users.js';
 import waterRouter from './water.js';
-import { auth } from '../middlewares/authenticate.js';
 
 const router = Router();
 
-router.use('/auth', authRouter);
 router.use('/users', userRouter);
-router.use('/water', auth, waterRouter);
+router.use('/water', waterRouter);
 
 export default router;
