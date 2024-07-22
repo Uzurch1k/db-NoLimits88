@@ -47,8 +47,8 @@ responses:
               example: Water consumption record added successfully!
             data:
               type: object
-              $ref: '../../components/schemas/water.yaml'
+              $ref: ../../components/schemas/water.yaml
   '400':
-    $ref: ../../../components/responses/400.yaml
+    $ref: ../../components/responses/400.yaml
   '401':
-    $ref: ../../../components/responses/401.yaml
+    $ref: ../../components/responses/401.yaml

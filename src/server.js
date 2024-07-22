@@ -30,9 +30,9 @@ export const setupServer = () => {
 
   app.use(cookieParser());
 
-  app.use(router);
-
   app.use('/api-docs', swaggerDocs());
+
+  app.use(router);
 
   app.use('*', notFoundHandler);
 

@@ -1,8 +1,8 @@
 tags:
-  - Contacts
-summary: Update contact
-operationId: updateContacts
-description: 'Update a contact with payload'
+  - Water consumption
+summary: Update water consumption
+operationId: updateWaterConsumption
+description: 'Update a water consumption with payload'
 security:
   - bearerAuth: []
 parameters:
@@ -18,30 +18,14 @@ requestBody:
       schema:
         type: object
         properties:
-          name:
-            description: "Contact's name"
+          date:
+            description: "Date of water consumption"
             type: string
-            example: 'John Doe'
-          phoneNumber:
-            description: "Contact's phone number"
-            type: string
-            example: '1234567890'
-          email:
-            description: "Contact's email"
-            type: string
-            example: 'example@gmail.com'
-          isFavourite:
-            description: 'Whether is favourite or not'
-            type: boolean
-            example: false
-          contactType:
-            description: "Type of contact"
-            type: string
-            enum: ['work', 'home', 'personal']
-          photo:
-            description: "Student''s photo"
-            type: string
-            format: binary
+            example: "2023-07-20T20:30"
+          amount:
+            description: "Amount of water consumed"
+            type: number
+            example: 1.5
 responses:
   '200':
     description: Updates a water consumption

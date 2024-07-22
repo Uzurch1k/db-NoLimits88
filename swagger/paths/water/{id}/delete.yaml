@@ -1,5 +1,5 @@
 tags:
-  - Water
+  - Water consumption
 summary: Delete the entered amount of water
 operationId: deleteWater
 description: 'Delete the entered amount of water'
@@ -32,7 +32,7 @@ responses:
               example: Water consumption record deleted successfully!
             data:
               type: object
-              $ref: '../../components/schemas/water.yaml'
+              $ref: ../../../components/schemas/water.yaml
   '401':
     $ref: ../../../components/responses/401.yaml
   '404':

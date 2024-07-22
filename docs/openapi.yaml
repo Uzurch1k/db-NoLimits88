@@ -10,10 +10,10 @@ info:
 tags:
   - name: Users
     description: Operations about users.
-  - name: Water
+  - name: Water consumption
     description: Operations about water consumption.
 servers:
-  - url: <http://localhost:3000>
+  - url: http://localhost:3000
   - url: https://aquatrack-backend-bmxm.onrender.com
 paths:
   /users/{id}:

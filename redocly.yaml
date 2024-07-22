@@ -7,14 +7,12 @@ extends:
 rules:
   no-unused-components: error
 theme:
-  openapi:
-    htmlTemplate: ./docs/index.html
-    theme:
-      colors:
-        primary:
-          main: '#32329f'
-    generateCodeSamples:
-      languages: # Array of language config objects; indicates in which languages to generate code samples.
-        - lang: curl
-        - lang: Node.js
-        - lang: JavaScript
+  htmlTemplate: ./docs/index.html
+  colors:
+    primary:
+      main: '#32329f'
+  generateCodeSamples:
+    languages:
+      - lang: curl
+      - lang: Node.js
+      - lang: JavaScript
