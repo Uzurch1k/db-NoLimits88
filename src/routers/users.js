@@ -18,7 +18,7 @@ import { logoutUserController } from '../controllers/users.js';
 
 const router = Router();
 
-router.use(auth);
+// router.use(auth);
 
 router.post(
   '/signup',
