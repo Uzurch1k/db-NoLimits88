@@ -1,26 +1,30 @@
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import { addWaterConsumptionController, updateWaterConsumptionController, deleteWaterConsumptionController } from '../controllers/water.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { addWaterConsumptionSchema, updateWaterConsumptionSchema } from '../validation/water.js';
+import { authenticate } from '../middlewares/auth.js';  
+import { addWaterRecordSchema, updateWaterRecordSchema } from '../validation/water.js';
+import { addWaterRecord, updateWaterRecord, deleteWaterRecord } from '../controllers/water.js';
 
 const router = Router();
 
 router.post(
   '/',
-  validateBody(addWaterConsumptionSchema),
-  ctrlWrapper(addWaterConsumptionController)
+  authenticate,
+  validateBody(addWaterRecordSchema),
+  ctrlWrapper(addWaterRecord)
 );
 
 router.put(
   '/:id',
-  validateBody(updateWaterConsumptionSchema),
-  ctrlWrapper(updateWaterConsumptionController)
+  authenticate,
+  validateBody(updateWaterRecordSchema),
+  ctrlWrapper(updateWaterRecord)
 );
 
 router.delete(
   '/:id',
-  ctrlWrapper(deleteWaterConsumptionController)
+  authenticate,
+  ctrlWrapper(deleteWaterRecord)
 );
 
 export default router;

@@ -1,28 +1,25 @@
 import jwt from 'jsonwebtoken';
 import { UsersCollection } from '../db/models/user.js';
-import createHttpError from 'http-errors';
-import { env } from '../utils/env.js';
 
-export const auth = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
+export const authenticate = async (req, res, next) => {
+  const { authorization = '' } = req.headers;
+  const token = authorization.split(' ')[1];
 
-  if (!authHeader) {
-    return next(createHttpError(401, 'Unauthorized'));
+  if (!token) {
+    return res.status(401).json({ status: 'error', message: 'Not authenticated' });
   }
 
-  const token = authHeader.split(' ')[1];
-
   try {
-    const decoded = jwt.verify(token, env('JWT_SECRET'));
-    const user = await UsersCollection.findById(decoded.id);
+    const { id } = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await UsersCollection.findById(id);
 
     if (!user) {
-      return next(createHttpError(401, 'Unauthorized'));
+      return res.status(401).json({ status: 'error', message: 'Not authenticated' });
     }
 
     req.user = user;
     next();
-  } catch (err) {
-    return next(createHttpError(401, 'Unauthorized'));
+  } catch (error) {
+    return res.status(401).json({ status: 'error', message: 'Not authenticated' });
   }
 };
