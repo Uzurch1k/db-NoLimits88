@@ -6,7 +6,6 @@ import {
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { updateUserSchema } from '../validation/users.js';
-import { auth } from '../middlewares/authenticate.js';
 import { registerUserSchema } from '../validation/users.js';
 import {
   registerUserController,
@@ -17,8 +16,6 @@ import { loginUserController } from '../controllers/users.js';
 import { logoutUserController } from '../controllers/users.js';
 
 const router = Router();
-
-router.use(auth);
 
 router.post(
   '/signup',
