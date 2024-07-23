@@ -1,17 +1,16 @@
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import { 
-  addWaterConsumptionController, 
-  updateWaterConsumptionController, 
-  deleteWaterConsumptionController, 
-  getWaterPerDayController
-} from '../controllers/water.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { 
-  addWaterConsumptionSchema, 
-  updateWaterConsumptionSchema 
+import { authenticate } from '../middlewares/auth.js';
+import {
+  addWaterRecordSchema,
+  updateWaterRecordSchema,
 } from '../validation/water.js';
-import { auth } from '../middlewares/authenticate.js';
+import {
+  addWaterRecord,
+  updateWaterRecord,
+  deleteWaterRecord,
+} from '../controllers/water.js';
 
 const router = Router();
 
@@ -19,23 +18,20 @@ router.use(auth);
 
 router.post(
   '/',
-  validateBody(addWaterConsumptionSchema),
-  ctrlWrapper(addWaterConsumptionController)
+  authenticate,
+  validateBody(addWaterRecordSchema),
+  ctrlWrapper(addWaterRecord)
 );
 
 router.put(
   '/:id',
-  validateBody(updateWaterConsumptionSchema),
-  ctrlWrapper(updateWaterConsumptionController)
+  authenticate,
+  validateBody(updateWaterRecordSchema),
+  ctrlWrapper(updateWaterRecord)
 );
 
-router.delete(
-  '/:id',
-  ctrlWrapper(deleteWaterConsumptionController)
-);
+router.delete('/:id', authenticate, ctrlWrapper(deleteWaterRecord));
 
-router.get(
-  '/day/:date', 
-  ctrlWrapper(getWaterPerDayController));
+router.get('/day/:date', ctrlWrapper(getWaterPerDayController));
 
 export default router;

@@ -1,42 +1,52 @@
-import { 
-  addWaterConsumption, 
-  updateWaterConsumption, 
+import {
+  addWaterConsumption,
+  updateWaterConsumption,
   deleteWaterConsumption,
   getWaterPerDay,
-} from '../services/water.js';
+  WaterRecord,
+} from '../db/models/water.js';
 
-export const addWaterConsumptionController = async (req, res) => {
-  const userId = req.user.id; 
-  const data = { ...req.body, userId };
-  const waterConsumption = await addWaterConsumption(data);
+export const addWaterRecord = async (req, res) => {
+  const { amount, date } = req.body;
+  const owner = req.user._id;
 
-  res.json({
-    status: 201,
-    message: 'Water consumption record added successfully!',
-    data: waterConsumption,
-  });
+  const newRecord = await WaterRecord.create({ amount, date, owner });
+  res.status(201).json({ status: 'success', data: newRecord });
 };
 
-export const updateWaterConsumptionController = async (req, res) => {
+export const updateWaterRecord = async (req, res) => {
   const { id } = req.params;
-  const data = req.body;
-  const waterConsumption = await updateWaterConsumption(id, data);
+  const { amount, date } = req.body;
+  const owner = req.user._id;
 
-  res.json({
-    status: 200,
-    message: 'Water consumption record updated successfully!',
-    data: waterConsumption,
-  });
+  const updatedRecord = await WaterRecord.findOneAndUpdate(
+    { _id: id, owner },
+    { amount, date },
+    { new: true }
+  );
+
+  if (!updatedRecord) {
+    return res
+      .status(404)
+      .json({ status: 'error', message: 'Record not found' });
+  }
+
+  res.status(200).json({ status: 'success', data: updatedRecord });
 };
 
-export const deleteWaterConsumptionController = async (req, res) => {
+export const deleteWaterRecord = async (req, res) => {
   const { id } = req.params;
-  await deleteWaterConsumption(id);
+  const owner = req.user._id;
 
-  res.json({
-    status: 200,
-    message: 'Water consumption record deleted successfully!',
-  });
+  const deletedRecord = await WaterRecord.findOneAndDelete({ _id: id, owner });
+
+  if (!deletedRecord) {
+    return res
+      .status(404)
+      .json({ status: 'error', message: 'Record not found' });
+  }
+
+  res.status(200).json({ status: 'success', message: 'Record deleted' });
 };
 
 export const getWaterPerDayController = async (req, res, next) => {

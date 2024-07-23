@@ -1,22 +1,22 @@
-import { model, Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-const waterConsumptionSchema = new Schema(
+const waterRecordSchema = new Schema(
   {
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'users',
+    amount: {
+      type: Number,
       required: true,
     },
     date: {
-      type: String,
-      required: true,
+      type: Date,
+      default: Date.now,
     },
-    amount: {
-      type: Number,
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'users',
       required: true,
     },
   },
   { timestamps: true, versionKey: false }
 );
 
-export const WaterConsumption = model('waterConsumption', waterConsumptionSchema);
+export const WaterRecord = model('WaterRecord', waterRecordSchema);

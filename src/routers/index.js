@@ -5,6 +5,7 @@ import waterRouter from './water.js';
 const router = Router();
 
 router.use('/users', userRouter);
+
 router.use('/water', waterRouter);
 
 export default router;

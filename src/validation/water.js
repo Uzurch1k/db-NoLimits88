@@ -1,11 +1,11 @@
 import Joi from 'joi';
 
-export const addWaterConsumptionSchema = Joi.object({
-  date: Joi.date().required(),
+export const addWaterRecordSchema = Joi.object({
   amount: Joi.number().required(),
+  date: Joi.date().optional(),
 });
 
-export const updateWaterConsumptionSchema = Joi.object({
-  date: Joi.date(),
-  amount: Joi.number(),
+export const updateWaterRecordSchema = Joi.object({
+  amount: Joi.number().required(),
+  date: Joi.date().optional(),
 });
