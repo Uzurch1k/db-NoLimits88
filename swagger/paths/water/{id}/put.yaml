@@ -1,0 +1,51 @@
+tags:
+  - Water consumption
+summary: Update water consumption
+operationId: updateWaterConsumption
+description: 'Update a water consumption with payload'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          date:
+            description: "Date of water consumption"
+            type: string
+            example: "2023-07-20T20:30"
+          amount:
+            description: "Amount of water consumed"
+            type: number
+            example: 1.5
+responses:
+  '200':
+    description: Updates a water consumption
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Water consumption record updated successfully!
+            data:
+              type: object
+              $ref: '../../../components/schemas/water.yaml'
+  '401':
+    $ref: '../../../components/responses/401.yaml'

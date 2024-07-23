@@ -1,0 +1,24 @@
+type: object
+required:
+  - _id
+  - userId
+  - date
+  - amount
+properties:
+  _id:
+    description: "Contact's id"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  userId:
+    description: "User's id"
+    type: string
+    example: 65e4decdd286b30065d54af8
+  date:
+    description: "Date of water consumption"
+    type: string
+    format: date-time
+    example: "2023-07-20T00:00:00.000Z"
+  amount:
+    description: "Amount of water consumed"
+    type: number
+    example: 1.5

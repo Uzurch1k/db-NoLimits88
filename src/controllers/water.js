@@ -1,4 +1,10 @@
-import { WaterRecord } from '../db/models/water.js';
+import {
+  addWaterConsumption,
+  updateWaterConsumption,
+  deleteWaterConsumption,
+  getWaterPerDay,
+  WaterRecord,
+} from '../db/models/water.js';
 
 export const addWaterRecord = async (req, res) => {
   const { amount, date } = req.body;
@@ -20,7 +26,9 @@ export const updateWaterRecord = async (req, res) => {
   );
 
   if (!updatedRecord) {
-    return res.status(404).json({ status: 'error', message: 'Record not found' });
+    return res
+      .status(404)
+      .json({ status: 'error', message: 'Record not found' });
   }
 
   res.status(200).json({ status: 'success', data: updatedRecord });
@@ -33,8 +41,25 @@ export const deleteWaterRecord = async (req, res) => {
   const deletedRecord = await WaterRecord.findOneAndDelete({ _id: id, owner });
 
   if (!deletedRecord) {
-    return res.status(404).json({ status: 'error', message: 'Record not found' });
+    return res
+      .status(404)
+      .json({ status: 'error', message: 'Record not found' });
   }
 
   res.status(200).json({ status: 'success', message: 'Record deleted' });
+};
+
+export const getWaterPerDayController = async (req, res, next) => {
+  const { date } = req.params;
+  const userId = req.user.id;
+
+  const result = await getWaterPerDay(userId, date);
+
+  res.status(200).json({
+    status: 200,
+    message: `Successfully!`,
+    data: result.value,
+    dailyAmount: result.totalAmount,
+    dailyPercentage: result.totalPercentage,
+  });
 };
