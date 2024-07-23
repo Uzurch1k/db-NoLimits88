@@ -1,8 +1,8 @@
 tags:
   - Users
-summary: Get user by id
-operationId: getUser
-description: 'Get user by id'
+summary: Get current user 
+operationId: getCurrentUser
+description: 'Get current user '
 security:
   - bearerAuth: []
 parameters:
@@ -14,7 +14,7 @@ parameters:
       example: '65ca67e7ae7f10c88b598384'
 responses:
   '200':
-    description: 'Get user by id'
+    description: 'Get current user'
     content:
       application/json:
         schema:
@@ -29,7 +29,7 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully found user with id 65ca67e7ae7f10c88b598384!
+              example: Current user information!
             data:
               type: object
               $ref: '../../../components/schemas/user.yaml'

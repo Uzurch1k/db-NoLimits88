@@ -11,6 +11,7 @@ import {
   updateWaterRecord,
   deleteWaterRecord,
 } from '../controllers/water.js';
+import { auth } from '../middlewares/authenticate.js';
 
 const router = Router();
 
@@ -32,6 +33,5 @@ router.put(
 
 router.delete('/:id', authenticate, ctrlWrapper(deleteWaterRecord));
 
-router.get('/day/:date', ctrlWrapper(getWaterPerDayController));
 
 export default router;

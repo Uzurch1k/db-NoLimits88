@@ -1,9 +1,12 @@
-import { getUserById, updateUser } from '../services/users.js';
+import { getUserById, updateUser} from '../services/users.js';
 import createHttpError from 'http-errors';
 import { registerUser } from '../services/users.js';
 import { loginUser, refreshUsersSession } from '../services/users.js';
 import { ONE_DAY } from '../constants/index.js';
 import { logoutUser } from '../services/users.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { env } from '../utils/env.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
@@ -71,7 +74,7 @@ export const refreshUserSessionController = async (req, res) => {
   });
 };
 
-export const getCurrentUserController = async (req, res) => {
+export const getCurrentUserController = async (req, res, next) => {
   try {
     const userId = req.user._id;
     const User = await getUserById(userId);
@@ -86,17 +89,33 @@ export const getCurrentUserController = async (req, res) => {
   }
 };
 
-export const updateUserController = async (req, res, next) => {
-  const userId = req.user._id;
+export const patchUserController = async (req, res, next) => {
+  const { userId } = req.params;
+  const photo = req.file;
 
-  const patch = await updateUser(userId, req.body);
-  if (!patch) {
-    next(createHttpError(404, 'Not found'));
+  let photoUrl;
+
+  if (photo) {
+    if (env('ENABLE_CLOUDINARY') === 'true') {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
+
+  const result = await updateUser(userId, {
+    ...req.body,
+    photo: photoUrl,
+  });
+
+  if (!result) {
+    next(createHttpError(404, 'User not found'));
     return;
   }
-  res.status(200).json({
+
+  res.json({
     status: 200,
-    message: 'Successfully patched a user!',
-    data: patch.user,
+    message: `Successfully patched a user!`,
+    data: result.user,
   });
 };

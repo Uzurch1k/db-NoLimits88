@@ -5,6 +5,7 @@ import { env } from './utils/env.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
+import { UPLOAD_DIR } from './constants/index.js';
 import router from './routers/index.js';
 import cookieParser from 'cookie-parser';
 
@@ -29,6 +30,8 @@ export const setupServer = () => {
   );
 
   app.use(cookieParser());
+
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.use('/api-docs', swaggerDocs());
 
