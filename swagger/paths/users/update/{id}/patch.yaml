@@ -39,6 +39,10 @@ requestBody:
             description: "User's daily water consumption in liters"
             type: number
             example: 2.5
+          photo:
+            description: "User's photo"
+            type: string
+            example: 'https://res.cloudinary.com/dzh0r2zb0/image/upload/v1721761102/hkxh93evnwllhlfienhj.jpg'
 responses:
   '200':
     description: Updates a user
@@ -59,8 +63,8 @@ responses:
               example: Successfully patched a user!
             data:
               type: object
-              $ref: '../../../components/schemas/user.yaml'
+              $ref: '../../../../components/schemas/user.yaml'
   '401':
-    $ref: '../../../components/responses/401.yaml'
+    $ref: '../../../../components/responses/401.yaml'
   '404':
-    $ref: '../../../components/responses/404.yaml'
+    $ref: '../../../../components/responses/404.yaml'

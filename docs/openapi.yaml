@@ -16,11 +16,6 @@ servers:
   - url: http://localhost:3000
   - url: https://aquatrack-backend-bmxm.onrender.com
 paths:
-  /users/{id}:
-    get:
-      $ref: ../swagger/paths/users/{id}/get.yaml
-    patch: 
-      $ref: ../swagger/paths/users/{id}/patch.yaml
   /users/signup:
     post:
       $ref: ../swagger/paths/users/signup/post.yaml
@@ -33,6 +28,12 @@ paths:
   /users/refresh:
     post:
       $ref: ../swagger/paths/users/refresh/post.yaml
+  /users/current:
+    get:
+      $ref: ../swagger/paths/users/current/get.yaml
+  /users/update/{id}:
+    patch:
+      $ref: ../swagger/paths/users/update/{id}/patch.yaml
   /water:
     post:
       $ref: ../swagger/paths/water/post.yaml

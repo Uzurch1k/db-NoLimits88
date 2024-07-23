@@ -1,8 +1,4 @@
 import {
-  addWaterConsumption,
-  updateWaterConsumption,
-  deleteWaterConsumption,
-  getWaterPerDay,
   WaterRecord,
 } from '../db/models/water.js';
 
@@ -49,17 +45,3 @@ export const deleteWaterRecord = async (req, res) => {
   res.status(200).json({ status: 'success', message: 'Record deleted' });
 };
 
-export const getWaterPerDayController = async (req, res, next) => {
-  const { date } = req.params;
-  const userId = req.user.id;
-
-  const result = await getWaterPerDay(userId, date);
-
-  res.status(200).json({
-    status: 200,
-    message: `Successfully!`,
-    data: result.value,
-    dailyAmount: result.totalAmount,
-    dailyPercentage: result.totalPercentage,
-  });
-};
