@@ -1,10 +1,4 @@
-import {
-  addWaterConsumption,
-  updateWaterConsumption,
-  deleteWaterConsumption,
-  getWaterPerDay,
-  WaterRecord,
-} from '../db/models/water.js';
+import { WaterRecord } from '../db/models/water.js';
 
 export const addWaterRecord = async (req, res) => {
   const { amount, date } = req.body;
