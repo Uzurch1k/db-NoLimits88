@@ -1,4 +1,4 @@
-import { getUserById, updateUser} from '../services/users.js';
+import { getUserById, updateUser } from '../services/users.js';
 import createHttpError from 'http-errors';
 import { registerUser } from '../services/users.js';
 import { loginUser, refreshUsersSession } from '../services/users.js';
@@ -19,7 +19,7 @@ export const registerUserController = async (req, res) => {
 };
 
 export const loginUserController = async (req, res) => {
-  const session = await loginUser(req.body);
+  const { user, session } = await loginUser(req.body);
 
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
@@ -34,6 +34,7 @@ export const loginUserController = async (req, res) => {
     status: 200,
     message: 'Successfully logged in an user!',
     data: {
+      user: user,
       accessToken: session.accessToken,
     },
   });
