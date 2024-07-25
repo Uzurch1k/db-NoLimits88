@@ -33,4 +33,5 @@ export const updateUserSchema = Joi.object({
   amountOfWater: Joi.number().integer().required().messages({
     'number.base': 'Amount of water should be a number',
   }),
+  photo: Joi.string
 });

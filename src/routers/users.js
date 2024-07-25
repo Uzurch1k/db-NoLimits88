@@ -5,9 +5,8 @@ import {
 } from '../controllers/users.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { updateUserSchema } from '../validation/users.js';
 import { auth } from '../middlewares/authenticate.js';
-import { registerUserSchema } from '../validation/users.js';
+import { registerUserSchema, updateUserSchema } from '../validation/users.js';
 import {
   registerUserController,
   refreshUserSessionController,
@@ -38,7 +37,7 @@ router.post('/refresh', ctrlWrapper(refreshUserSessionController));
 router.get('/current', auth, ctrlWrapper(getCurrentUserController));
 
 router.patch(
-  '/update/:id',
+  '/update',
   auth,
   upload.single('photo'),
   validateBody(updateUserSchema),

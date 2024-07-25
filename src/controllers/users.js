@@ -4,8 +4,8 @@ import { registerUser } from '../services/users.js';
 import { loginUser, refreshUsersSession } from '../services/users.js';
 import { ONE_DAY } from '../constants/index.js';
 import { logoutUser } from '../services/users.js';
-import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { env } from '../utils/env.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 
 export const registerUserController = async (req, res) => {
@@ -91,7 +91,7 @@ export const getCurrentUserController = async (req, res, next) => {
 };
 
 export const patchUserController = async (req, res, next) => {
-  const { userId } = req.params;
+  const userId = req.user._id;
   const photo = req.file;
 
   let photoUrl;
