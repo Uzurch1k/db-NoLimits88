@@ -5,6 +5,7 @@ import { env } from './utils/env.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
+import { UPLOAD_DIR } from './constants/index.js';
 import router from './routers/index.js';
 import cookieParser from 'cookie-parser';
 
@@ -18,7 +19,12 @@ export const setupServer = () => {
       type: ['application/json', 'application/vnd.api+json'],
     })
   );
-  app.use(cors());
+  app.use(
+    cors({
+      origin: 'http://localhost:5173',
+      credentials: true,
+    })
+  );
 
   app.use(
     pino({
@@ -29,6 +35,8 @@ export const setupServer = () => {
   );
 
   app.use(cookieParser());
+
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.use('/api-docs', swaggerDocs());
 

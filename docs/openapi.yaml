@@ -33,6 +33,12 @@ paths:
   /users/refresh:
     post:
       $ref: ./paths/users/refresh/post.yaml
+  /users/current:
+    get:
+      $ref: ../swagger/paths/users/current/get.yaml
+  /users/update/{id}:
+    patch:
+      $ref: ../swagger/paths/users/update/{id}/patch.yaml
   /water:
     post:
       $ref: ./paths/water/post.yaml

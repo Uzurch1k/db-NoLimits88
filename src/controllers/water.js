@@ -40,6 +40,7 @@ export const deleteWaterRecord = async (req, res) => {
   res.status(200).json({ status: 'success', message: 'Record deleted' });
 };
 
+
 export const getDailyWaterConsumption = async (req, res) => {
   const owner = req.user._id;
   const today = dayjs().startOf('day');

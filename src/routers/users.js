@@ -1,13 +1,12 @@
 import { Router } from 'express';
 import {
   getCurrentUserController,
-  updateUserController,
+  patchUserController,
 } from '../controllers/users.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { updateUserSchema } from '../validation/users.js';
 import { auth } from '../middlewares/authenticate.js';
-import { registerUserSchema } from '../validation/users.js';
+import { registerUserSchema, updateUserSchema } from '../validation/users.js';
 import {
   registerUserController,
   refreshUserSessionController,
@@ -15,10 +14,9 @@ import {
 import { loginUserSchema } from '../validation/users.js';
 import { loginUserController } from '../controllers/users.js';
 import { logoutUserController } from '../controllers/users.js';
+import { upload } from '../middlewares/multer.js';
 
 const router = Router();
-
-// router.use(auth);
 
 router.post(
   '/signup',
@@ -41,8 +39,9 @@ router.get('/current', auth, ctrlWrapper(getCurrentUserController));
 router.patch(
   '/update',
   auth,
+  upload.single('photo'),
   validateBody(updateUserSchema),
-  ctrlWrapper(updateUserController)
+  ctrlWrapper(patchUserController)
 );
 
 export default router;
