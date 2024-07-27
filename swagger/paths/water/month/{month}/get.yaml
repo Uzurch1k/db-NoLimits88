@@ -1,0 +1,39 @@
+get:
+  tags:
+    - Water consumption
+  summary: Get water consumption for a specific month
+  operationId: getWaterPerMonth
+  description: Get water consumption records for a specific month
+  security:
+    - bearerAuth: []
+  parameters:
+    - in: path
+      name: month
+      required: true
+      schema:
+        type: string
+        example: '2023-07'
+  responses:
+    '200':
+      description: Successfully fetched water consumption records
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - status
+              - data
+            properties:
+              status:
+                type: string
+                example: success
+              data:
+                type: array
+                items:
+                  $ref: ../../../components/schemas/water.yaml
+    '401':
+      $ref: ../../../components/responses/401.yaml
+    '400':
+      $ref: ../../../components/responses/400.yaml
+    '404':
+      $ref: ../../../components/responses/404.yaml
