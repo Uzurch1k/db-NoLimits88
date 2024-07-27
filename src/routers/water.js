@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { authenticate } from '../middlewares/auth.js';
+// import { authenticate } from '../middlewares/auth.js';
 import {
   addWaterRecordSchema,
   updateWaterRecordSchema,
@@ -17,7 +17,7 @@ import { auth } from '../middlewares/authenticate.js';
 
 const router = Router();
 
-router.use(authenticate);
+router.use(auth);
 
 router.post(
   '/',
