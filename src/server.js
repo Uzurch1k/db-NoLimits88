@@ -14,17 +14,29 @@ const PORT = Number(env('PORT', '3000'));
 export const setupServer = () => {
   const app = express();
 
+  const allowedOrigins = [
+    'http://localhost:5173',
+    'https://project-no-limits88.vercel.app',
+  ];
+
+  const corsOptions = {
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    optionsSuccessStatus: 200,
+  };
+
   app.use(
     express.json({
       type: ['application/json', 'application/vnd.api+json'],
     })
   );
-  app.use(
-    cors({
-      origin: 'http://localhost:5173',
-      credentials: true,
-    })
-  );
+
+  app.use(cors(corsOptions));
 
   app.use(
     pino({
