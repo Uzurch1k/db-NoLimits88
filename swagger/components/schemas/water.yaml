@@ -1,15 +1,15 @@
 type: object
 required:
   - _id
-  - userId
+  - owner
   - date
   - amount
 properties:
   _id:
-    description: "Contact's id"
+    description: "Water record's id"
     type: string
     example: 65e4decdd286b30065d54af9
-  userId:
+  owner:
     description: "User's id"
     type: string
     example: 65e4decdd286b30065d54af8
