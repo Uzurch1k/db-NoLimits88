@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { authenticate } from '../middlewares/auth.js';
+// import { authenticate } from '../middlewares/auth.js';
 import {
   addWaterRecordSchema,
   updateWaterRecordSchema,
@@ -19,19 +19,22 @@ router.use(auth);
 
 router.post(
   '/',
-  authenticate,
+  // authenticate,
   validateBody(addWaterRecordSchema),
   ctrlWrapper(addWaterRecord)
 );
 
 router.put(
   '/:id',
-  authenticate,
+  // authenticate,
   validateBody(updateWaterRecordSchema),
   ctrlWrapper(updateWaterRecord)
 );
 
-router.delete('/:id', authenticate, ctrlWrapper(deleteWaterRecord));
-
+router.delete(
+  '/:id',
+  // authenticate,
+  ctrlWrapper(deleteWaterRecord)
+);
 
 export default router;
