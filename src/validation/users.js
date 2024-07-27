@@ -27,11 +27,11 @@ export const updateUserSchema = Joi.object({
   weight: Joi.number().integer().messages({
     'number.base': 'Weight should be a number',
   }),
-  activeTime: Joi.number().integer().required().messages({
+  activeTime: Joi.number().integer().messages({
     'number.base': 'Active time should be a number',
   }),
-  amountOfWater: Joi.number().integer().required().messages({
+  amountOfWater: Joi.number().integer().messages({
     'number.base': 'Amount of water should be a number',
   }),
-  photo: Joi.string
+  photo: Joi.string,
 });
