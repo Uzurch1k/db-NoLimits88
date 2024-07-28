@@ -2,7 +2,6 @@ import { getUserById, updateUser } from '../services/users.js';
 import createHttpError from 'http-errors';
 import { registerUser } from '../services/users.js';
 import { loginUser, refreshUsersSession } from '../services/users.js';
-import { ONE_DAY } from '../constants/index.js';
 import { logoutUser } from '../services/users.js';
 import { env } from '../utils/env.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
@@ -21,11 +20,6 @@ export const registerUserController = async (req, res) => {
 export const loginUserController = async (req, res) => {
   const { user, session } = await loginUser(req.body);
 
-  res.cookie('sessionId', session._id, {
-    httpOnly: true,
-    expires: new Date(Date.now() + ONE_DAY),
-  });
-
   res.json({
     status: 200,
     message: 'Successfully logged in an user!',
@@ -38,24 +32,15 @@ export const loginUserController = async (req, res) => {
 };
 
 export const logoutUserController = async (req, res) => {
-  if (req.cookies.sessionId) {
-    await logoutUser(req.cookies.sessionId);
-  }
-
-  res.clearCookie('sessionId');
+  await logoutUser(req.user._id);
 
   res.status(204).send();
 };
 
 export const refreshUserSessionController = async (req, res) => {
   const session = await refreshUsersSession({
-    sessionId: req.cookies.sessionId,
+    userId: req.user._id,
     refreshToken: req.body.refreshToken,
-  });
-
-  res.cookie('sessionId', session._id, {
-    httpOnly: true,
-    expires: new Date(Date.now() + ONE_DAY),
   });
 
   res.json({
