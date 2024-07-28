@@ -28,7 +28,7 @@ export const auth = async (req, res, next) => {
     const isAccessTokenExpired =
         new Date() > new Date(session.accessTokenValidUntil);
 
-    if (isAccessTokenExpired) {
+    if (isAccessTokenExpired && req.baseUrl + req.path != '/users/refresh') {
         next(createHttpError(401, 'Access token expired'));
     }
 

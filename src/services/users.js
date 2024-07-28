@@ -47,13 +47,13 @@ export const loginUser = async payload => {
   };
 };
 
-export const logoutUser = async sessionId => {
-  await SessionsCollection.deleteOne({ _id: sessionId });
+export const logoutUser = async userId => {
+  await SessionsCollection.deleteOne({ userId });
 };
 
-export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
+export const refreshUsersSession = async ({ userId, refreshToken }) => {
   const session = await SessionsCollection.findOne({
-    _id: sessionId,
+    userId,
     refreshToken,
   });
   if (!session) {
@@ -75,7 +75,7 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
     refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
   };
 
-  await SessionsCollection.deleteOne({ _id: sessionId, refreshToken });
+  await SessionsCollection.deleteOne({ userId, refreshToken });
 
   return await SessionsCollection.create({
     userId: session.userId,
