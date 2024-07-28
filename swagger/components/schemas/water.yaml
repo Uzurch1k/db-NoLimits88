@@ -1,8 +1,6 @@
 type: object
 required:
-  - _id
   - owner
-  - date
   - amount
 properties:
   _id:
@@ -17,8 +15,8 @@ properties:
     description: "Date of water consumption"
     type: string
     format: date-time
-    example: "2023-07-20T00:00:00.000Z"
+    example: "2024-07-28T14:23:54.006Z"
   amount:
     description: "Amount of water consumed"
     type: number
-    example: 1.5
+    example: 500
