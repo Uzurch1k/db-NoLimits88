@@ -2,18 +2,17 @@ import { Router } from 'express';
 import {
   getCurrentUserController,
   patchUserController,
+  registerUserController,
+  refreshUserSessionController,
+  loginUserController,
+  logoutUserController,
+  getUserCountController,
 } from '../controllers/users.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { auth } from '../middlewares/authenticate.js';
 import { registerUserSchema, updateUserSchema } from '../validation/users.js';
-import {
-  registerUserController,
-  refreshUserSessionController,
-} from '../controllers/users.js';
 import { loginUserSchema } from '../validation/users.js';
-import { loginUserController } from '../controllers/users.js';
-import { logoutUserController } from '../controllers/users.js';
 import { upload } from '../middlewares/multer.js';
 
 const router = Router();
@@ -43,5 +42,7 @@ router.patch(
   validateBody(updateUserSchema),
   ctrlWrapper(patchUserController)
 );
+
+router.get('/count', ctrlWrapper(getUserCountController));
 
 export default router;
