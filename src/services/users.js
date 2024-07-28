@@ -51,9 +51,8 @@ export const logoutUser = async userId => {
   await SessionsCollection.deleteOne({ userId });
 };
 
-export const refreshUsersSession = async ({ userId, refreshToken }) => {
+export const refreshUsersSession = async ({ refreshToken }) => {
   const session = await SessionsCollection.findOne({
-    userId,
     refreshToken,
   });
   if (!session) {
@@ -75,7 +74,7 @@ export const refreshUsersSession = async ({ userId, refreshToken }) => {
     refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
   };
 
-  await SessionsCollection.deleteOne({ userId, refreshToken });
+  await SessionsCollection.deleteOne({ refreshToken });
 
   return await SessionsCollection.create({
     userId: session.userId,
