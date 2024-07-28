@@ -6,6 +6,7 @@ import { logoutUser } from '../services/users.js';
 import { env } from '../utils/env.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { getUserCount } from '../services/users.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
@@ -97,4 +98,13 @@ export const patchUserController = async (req, res, next) => {
     message: `Successfully patched a user!`,
     data: result.user,
   });
+};
+
+export const getUserCountController = async (req, res) => {
+  try {
+    const count = await getUserCount();
+    res.status(200).json({ count });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
 };
