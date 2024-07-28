@@ -3,8 +3,6 @@ tags:
 summary: Sign in a user
 operationId: SigninUser
 description: Sign in a user
-security:
-  - bearerAuth: []
 requestBody:
   required: true
   content:

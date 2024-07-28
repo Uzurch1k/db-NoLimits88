@@ -11,18 +11,20 @@ requestBody:
       schema:
         type: object
         required:
-          - userId
-          - date
           - amount
         properties:
-          userId:
+          _id:
+            description: "Water record's id"
+            type: string
+            example: 65e4decdd286b30065d54af9
+          owner:
             description: "User's id"
             type: string
             example: 65e4decdd286b30065d54af8
           date:
             description: "Date of water consumption"
             type: string
-            example: "2023-07-20T20:30"
+            example: "2024-07-28T14:23:54.006Z"
           amount:
             description: "Amount of water consumed"
             type: number
@@ -47,7 +49,7 @@ responses:
               example: Water consumption record added successfully!
             data:
               type: object
-              $ref: ../../components/schemas/water.yaml
+              $ref: ../../components/schemas/water.yaml 
   '400':
     $ref: ../../components/responses/400.yaml
   '401':

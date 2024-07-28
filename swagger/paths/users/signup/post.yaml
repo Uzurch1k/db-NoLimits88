@@ -3,8 +3,6 @@ tags:
 summary: Sign up a user
 operationId: SignupUser
 description: Sign up a user
-security:
-  - bearerAuth: []
 requestBody:
   required: true
   content:
