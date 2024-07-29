@@ -104,7 +104,9 @@ export const updateUser = async (userId, payload, options = {}) => {
   };
 };
 
-export const getUserCount = async () => {
+export const getUserCountAndPhotos = async () => {
   const count = await UsersCollection.countDocuments();
-  return count;
+  const users = await UsersCollection.find({}, 'photo -_id');
+  const photos = users.map(user => user.photo).filter(photo => photo);
+  return { count, photos };
 };

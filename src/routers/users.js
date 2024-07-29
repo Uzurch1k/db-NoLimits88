@@ -6,7 +6,7 @@ import {
   refreshUserSessionController,
   loginUserController,
   logoutUserController,
-  getUserCountController,
+  getUserCountAndPhotosController,
 } from '../controllers/users.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
@@ -43,6 +43,6 @@ router.patch(
   ctrlWrapper(patchUserController)
 );
 
-router.get('/count', ctrlWrapper(getUserCountController));
+router.get('/count', ctrlWrapper(getUserCountAndPhotosController));
 
 export default router;
