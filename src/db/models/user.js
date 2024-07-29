@@ -4,7 +4,7 @@ const usersSchema = new Schema(
   {
     gender: {
       type: String,
-      enum: ['Woman', 'Men'],
+      enum: ['Woman', 'Man'],
     },
     name: { type: String },
     email: { type: String, required: true, unique: true },

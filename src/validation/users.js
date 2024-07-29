@@ -12,8 +12,8 @@ export const loginUserSchema = Joi.object({
 });
 
 export const updateUserSchema = Joi.object({
-  gender: Joi.string().valid('Woman', 'Men').messages({
-    'string.base': 'User type should be a one of "Woman" or "Men"',
+  gender: Joi.string().valid('Woman', 'Man').messages({
+    'string.base': 'User type should be a one of "Woman" or "Man"',
   }),
   name: Joi.string().min(3).max(20).messages({
     'string.base': 'Username should be a string',
@@ -24,13 +24,13 @@ export const updateUserSchema = Joi.object({
   email: Joi.string()
     .email()
     .messages({ 'string.base': 'Email should be a string' }),
-  weight: Joi.number().integer().messages({
+  weight: Joi.number().messages({
     'number.base': 'Weight should be a number',
   }),
-  activeTime: Joi.number().integer().messages({
+  activeTime: Joi.number().messages({
     'number.base': 'Active time should be a number',
   }),
-  amountOfWater: Joi.number().integer().messages({
+  amountOfWater: Joi.number().messages({
     'number.base': 'Amount of water should be a number',
   }),
   photo: Joi.string,
