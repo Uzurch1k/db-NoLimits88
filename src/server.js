@@ -25,6 +25,7 @@ export const setupServer = () => {
       origin: [
         'http://localhost:5173',
         'https://project-no-limits88.vercel.app',
+        'https://project-nolimits88.netlify.app',
       ],
       credentials: true,
     })
