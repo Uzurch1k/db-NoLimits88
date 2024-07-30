@@ -3,10 +3,20 @@ tags:
 summary: Refresh token
 operationId: refreshToken
 description: 'Refresh token'
-security:
-  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - refreshToken
+        properties:
+          refreshToken:
+            type: string,
+            example: +qJ/ZMdRmjbryYoOAgXj5EAJOmSk8s2Yg57Yh3qw
 responses:
-  '204':
+  '200':
     description: Refresh token
     content:
       application/json:
@@ -18,7 +28,7 @@ responses:
           properties:
             status:
               type: integer
-              example: 204
+              example: 200
             message:
               type: string
               example: Successfully refreshed a session!
