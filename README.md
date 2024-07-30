@@ -1,13 +1,11 @@
-## db-NoLimits88
+# db-NoLimits88
 
-In the server-side implementation of the AquaTrack project, key functionalities
-for user management and security are provided. The backend includes the
-following features:
+The server-side web application of the AquaTrack project provides key functionalities 
+for user management and security. The backend includes the following features:
 
-- **User Registration, Login, and Logout**: Users can create an account, log in,
-  and log out of the system. These processes are secured and support the
-  issuance of access and refresh tokens, ensuring secure interaction with the
-  application.
+- **User Registration, Login, and Logout**: Users can create an account, log in, 
+and log out of the system. These processes are secured and support the generation of access 
+and refresh tokens, ensuring secure interaction with the web application.
 
 - **Routes for Operations**: Separate routes are created for each of these
   functions, handling requests for registration, authentication, and logout.
@@ -23,7 +21,7 @@ following features:
 This system ensures robust user account management and data protection, creating
 a secure environment for working with the AquaTrack application.
 
-# Backend Commands
+## Backend Commands
 
 1. **npm run lint**: Performs linting (code checking for adherence to standards
    and potential errors) on all JavaScript files in the src folder and its
@@ -52,4 +50,4 @@ a secure environment for working with the AquaTrack application.
 
 ## API
 
-[Додаток AquaTrack](https://project-nolimits88.netlify.app/)
+[AquaTrack application](https://project-nolimits88.netlify.app/)
