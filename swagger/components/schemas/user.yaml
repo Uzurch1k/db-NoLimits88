@@ -20,7 +20,7 @@ properties:
   email:
     description: "User's email"
     type: string
-    example: jane.doe@example.com
+    example: example@gmail.com
   password:
     description: "User's password"
     type: string
@@ -37,3 +37,7 @@ properties:
     description: "User's daily water consumption in liters"
     type: number
     example: 2.5
+  photo:
+    description: "User's photo"
+    type: string
+    example: https://res.cloudinary.com/dzh0r2zb0/image/upload/v1722281193/fzdji9wy2ath6lwwfzcv.jpg

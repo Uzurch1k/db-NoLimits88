@@ -17,7 +17,7 @@ requestBody:
             type: string
             example: example@email.com
           password:
-            type: string
+            type: number
             example: 1234567890
 responses:
   '200':

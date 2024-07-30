@@ -42,7 +42,7 @@ requestBody:
           photo:
             description: "User's photo"
             type: string
-            example: 'https://res.cloudinary.com/dzh0r2zb0/image/upload/v1721761102/hkxh93evnwllhlfienhj.jpg'
+            example: https://res.cloudinary.com/dzh0r2zb0/image/upload/v1721761102/hkxh93evnwllhlfienhj.jpg
 responses:
   '200':
     description: Updates a user
